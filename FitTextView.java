@@ -2,6 +2,7 @@ package com.sukohi.lib;
 
 import android.content.Context;
 import android.graphics.Paint;
+import android.graphics.Paint.FontMetrics;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.widget.TextView;
@@ -18,6 +19,19 @@ public class FitTextView extends TextView {
  
     public FitTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
+    }
+    
+    public void setFitText(CharSequence text) {
+    	
+    	setText(text);
+    	
+    	paint = new Paint();
+		paint.setTextSize(getTextSize());
+		FontMetrics fontMetrics = paint.getFontMetrics();
+		int paddingHeight = getPaddingTop() + getPaddingBottom();
+		int viewHeight = (int) (Math.abs(fontMetrics.ascent) + Math.abs(fontMetrics.descent) + paddingHeight);
+		setHeight(viewHeight);
+    	
     }
     
     @Override
@@ -92,5 +106,10 @@ public class FitTextView extends TextView {
         android:paddingRight="5dp"
         android:paddingLeft="5dp"
         android:gravity="center" />
+
+	// Java
+
+	FitTextView fitTextView = new FitTextView();
+	fitTextView.setFitText(text);
 
 ***/
